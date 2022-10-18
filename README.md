@@ -7,4 +7,5 @@ To find out more please visit:
 [🐦 Twitter](https://twitter.com/PloggingCats)
 
 [ℹ️ Website Link 1](https://ploggingcats.com/)
-[ℹ️ Website Link 2](https://ploggingcats.io)
+
+[ℹ️ Website Link 2](https://ploggingcats.io/)
