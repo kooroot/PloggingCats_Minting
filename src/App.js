@@ -4,16 +4,8 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
-import Slider from "react-slick";
-import "../node_modules/slick-carousel/slick/slick.css";
-import "../node_modules/slick-carousel/slick/slick-theme.css";
-
-import Image1 from "./slide/slide_1.png"
-import Image2 from "./slide/slide_2.png"
-import Image3 from "./slide/slide_3.png"
-import Image4 from "./slide/slide_4.png"
-import Image5 from "./slide/slide_5.png"
-import Image6 from "./slide/slide_6.png"
+import Slide from "./Slide"
+import "./styles/App.css"
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -92,6 +84,18 @@ export const SloganImg = styled.img`
   transition: width 0.5s;
 `;
 
+export const SlideWrap = styled.div`
+  display: flex;
+  width: 500px;
+`;
+
+export const MintingWrap = styled.div`
+  display: flex;
+  width: calc(100% - 520px);
+  height: 100%;
+  background-color: rgba(255, 255, 255, .4);
+`;
+
 export const StyledImg = styled.img`
   box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
   border: 4px dashed var(--secondary);
@@ -110,12 +114,6 @@ export const StyledImg = styled.img`
 export const StyledLink = styled.a`
   color: var(--secondary);
   text-decoration: none;
-`;
-
-export const StyledSlide = styled.div`
-  display: flex;
-  flex: 1;
-  
 `;
 
 function App() {
@@ -217,34 +215,7 @@ function App() {
     getData();
   }, [blockchain.account]);
 
-  const baseUrl = [
-    {image: Image1, "event":"ALBINO"},
-    {image: Image2},
-    {image: Image3},
-    {image: Image4},
-    {image: Image5},
-    {image: Image6},
-  ];
-
-  const settings = {
-    dots: true,
-    dotsClass: "slick-dots",
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    pauseOnHover: true
-  };
-
-  const slideCustom = (idx) => {
-    return (
-      <div className="item_wrap">
-        <img className="slide_image" src={baseUrl[idx].image} />
-      </div>
-    );
-  };
+  
 
   return (
     <s.Screen>
@@ -283,19 +254,14 @@ function App() {
         <SloganImg alt={"SAVING PLANET, PLOGGING CATS"} src={"/config/images/minting_slogan.png"}/>
 
         {/* <ResponsiveWrapper flex={1} style={{ padding: 24 }} test> */}
-        <ResponsiveWrapper flex={1} style={{ padding: 24 }}>
-          {/* 좌측 박스 */}
-          <s.Container flex={2} jc={"center"} ai={"center"} >
-            {/* <StyledImg alt={"example"} src={"/config/images/example.gif"} /> */}
-            <Slider {...settings}>
-              {slideCustom(0)}
-              {slideCustom(1)}
-              {slideCustom(2)}
-              {slideCustom(3)}
-              {slideCustom(4)}
-            </Slider>
-          </s.Container>
+        <ResponsiveWrapper flex={1} style={{ padding: 24, marginTop: 50 }}>
+
+          <SlideWrap>
+            <Slide />
+          </SlideWrap>
+
           {/* 우측 박스 */}
+          <MintingWrap></MintingWrap>
           {/* <s.Container
             flex={3}
             jc={"center"}
@@ -491,9 +457,9 @@ function App() {
             />
           </s.Container> */}
         </ResponsiveWrapper>
-        <s.SpacerMedium />
-        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
-          <s.TextDescription
+        {/* <s.SpacerMedium /> */}
+        {/* <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}> */}
+          {/* <s.TextDescription
             style={{
               textAlign: "center",
               color: "var(--primary-text)",
@@ -502,9 +468,9 @@ function App() {
             Please make sure you are connected to the right network (
             {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
             Once you make the purchase, you cannot undo this action.
-          </s.TextDescription>
-          <s.SpacerSmall />
-          <s.TextDescription
+          </s.TextDescription> */}
+          {/* <s.SpacerSmall /> */}
+          {/* <s.TextDescription
             style={{
               textAlign: "center",
               color: "var(--primary-text)",
@@ -513,8 +479,8 @@ function App() {
             We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
             successfully mint your NFT. We recommend that you don't lower the
             gas limit.
-          </s.TextDescription>
-        </s.Container>
+          </s.TextDescription> */}
+        {/* </s.Container> */}
       </s.Container>
     </s.Screen>
   );
