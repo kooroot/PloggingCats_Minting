@@ -4,6 +4,16 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
+import Slider from "react-slick";
+import "../node_modules/slick-carousel/slick/slick.css";
+import "../node_modules/slick-carousel/slick/slick-theme.css";
+
+import Image1 from "./slide/slide_1.png"
+import Image2 from "./slide/slide_2.png"
+import Image3 from "./slide/slide_3.png"
+import Image4 from "./slide/slide_4.png"
+import Image5 from "./slide/slide_5.png"
+import Image6 from "./slide/slide_6.png"
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -18,14 +28,19 @@ export const StyledButton = styled.button`
   color: var(--secondary-text);
   width: 100px;
   cursor: pointer;
-  box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
-  -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
-  -moz-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
-  :active {
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-  }
+`;
+
+export const WalletButton = styled.button`
+  width: 300px;
+  height: 50px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  background-color: transparent;
+  padding: 10px 15px;
+  font-weight: bold;
+  color: var(--secondary-text);
+  cursor: pointer;
+  font-size: 28px;
 `;
 
 export const StyledRoundButton = styled.button`
@@ -43,9 +58,6 @@ export const StyledRoundButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 4px 0px -2px rgba(250, 250, 250, 0.3);
-  -webkit-box-shadow: 0px 4px 0px -2px rgba(250, 250, 250, 0.3);
-  -moz-box-shadow: 0px 4px 0px -2px rgba(250, 250, 250, 0.3);
   :active {
     box-shadow: none;
     -webkit-box-shadow: none;
@@ -68,10 +80,16 @@ export const ResponsiveWrapper = styled.div`
 export const StyledLogo = styled.img`
   width: 200px;
   @media (min-width: 767px) {
-    width: 300px;
+    width: 200px;
   }
   transition: width 0.5s;
   transition: height 0.5s;
+`;
+
+export const SloganImg = styled.img`
+  display: flex;
+  width: 500px;
+  transition: width 0.5s;
 `;
 
 export const StyledImg = styled.img`
@@ -92,6 +110,12 @@ export const StyledImg = styled.img`
 export const StyledLink = styled.a`
   color: var(--secondary);
   text-decoration: none;
+`;
+
+export const StyledSlide = styled.div`
+  display: flex;
+  flex: 1;
+  
 `;
 
 function App() {
@@ -193,25 +217,87 @@ function App() {
     getData();
   }, [blockchain.account]);
 
+  const baseUrl = [
+    {image: Image1, "event":"ALBINO"},
+    {image: Image2},
+    {image: Image3},
+    {image: Image4},
+    {image: Image5},
+    {image: Image6},
+  ];
+
+  const settings = {
+    dots: true,
+    dotsClass: "slick-dots",
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: true
+  };
+
+  const slideCustom = (idx) => {
+    return (
+      <div className="item_wrap">
+        <img className="slide_image" src={baseUrl[idx].image} />
+      </div>
+    );
+  };
+
   return (
     <s.Screen>
       <s.Container
+      /* 전체 영역 */
         flex={1}
         ai={"center"}
-        style={{ padding: 24, backgroundColor: "var(--primary)" }}
+        h={100}
+        style={{ padding: 24, backgroundColor: "var(--primary)", height: 200 }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
-        <a href={CONFIG.MARKETPLACE_LINK}>
-          <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
-        </a>
-        <s.SpacerSmall />
-        <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
+        <s.Container
+        /* 🔽 헤더 */
+          h={140}
+          ai={"center"}
+          jc={"space-between"}
+          fd={"row"}
+        >
+          {/* 로고 */}
+          <a d={"block"} w={200} href={CONFIG.MARKETPLACE_LINK}>
+            <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+          </a>
+          {/* 지갑 버튼 */}
+          <WalletButton
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(connect());
+              getData();
+            }}
+          >
+            WALLET CONNECT
+          </WalletButton>
+          {/* 🔼 헤더 */}
+        </s.Container>
+        {/* 슬로건 */}
+        <SloganImg alt={"SAVING PLANET, PLOGGING CATS"} src={"/config/images/minting_slogan.png"}/>
+
+        {/* <ResponsiveWrapper flex={1} style={{ padding: 24 }} test> */}
+        <ResponsiveWrapper flex={1} style={{ padding: 24 }}>
+          {/* 좌측 박스 */}
+          <s.Container flex={2} jc={"center"} ai={"center"} >
+            {/* <StyledImg alt={"example"} src={"/config/images/example.gif"} /> */}
+            <Slider {...settings}>
+              {slideCustom(0)}
+              {slideCustom(1)}
+              {slideCustom(2)}
+              {slideCustom(3)}
+              {slideCustom(4)}
+            </Slider>
           </s.Container>
-          <s.SpacerLarge />
-          <s.Container
-            flex={2}
+          {/* 우측 박스 */}
+          {/* <s.Container
+            flex={3}
             jc={"center"}
             ai={"center"}
             style={{
@@ -396,15 +482,14 @@ function App() {
               </>
             )}
             <s.SpacerMedium />
-          </s.Container>
-          <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
+          </s.Container> */}
+          {/* <s.Container flex={1} jc={"center"} ai={"center"}>
             <StyledImg
               alt={"example"}
               src={"/config/images/example.gif"}
               style={{ transform: "scaleX(-1)" }}
             />
-          </s.Container>
+          </s.Container> */}
         </ResponsiveWrapper>
         <s.SpacerMedium />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
