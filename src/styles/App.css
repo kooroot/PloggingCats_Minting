@@ -1,16 +1,11 @@
 .slick-slider{
-  width: 500px;
-  height: 500px;
-  border-radius: 50px;
-  box-sizing: border-box;
-  background-color: #f3ebcb;
+  width: 100%;
 }
 .slick-slider .slick-track .slide_item {
-  width: 500px;
-  height: 500px;
+  width: 100%;
   position: relative;
   border-radius: 50px;
-  
+  background-color: #f3ebcb;
 }
 .slick-slider .slick-track .ALBINO {
   border: 4px solid transparent;
@@ -39,6 +34,8 @@
 
 .slide_image{
   width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 .slick-dots{
@@ -48,5 +45,9 @@
 .slick-dots li{
   width: 10px;
   height: 10px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #ff5101;
 }
 

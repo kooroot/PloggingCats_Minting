@@ -2,10 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
+import ProgressBar from "@ramonak/react-progress-bar";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
-import Slide from "./Slide"
-import "./styles/App.css"
+import Slide from "./Slide";
+import "./styles/App.css";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -14,12 +15,21 @@ export const StyledButton = styled.button`
   padding: 10px;
   border-radius: 50px;
   border: none;
-  background-color: var(--secondary);
+  background-color: #ff5101;
   padding: 10px;
   font-weight: bold;
-  color: var(--secondary-text);
+  color: #fff;
   width: 100px;
   cursor: pointer;
+`;
+
+export const StyledLogo = styled.img`
+  width: 200px;
+  @media (min-width: 767px) {
+    width: 200px;
+  }
+  transition: width 0.5s;
+  transition: height 0.5s;
 `;
 
 export const WalletButton = styled.button`
@@ -39,76 +49,60 @@ export const StyledRoundButton = styled.button`
   padding: 10px;
   border-radius: 100%;
   border: none;
-  background-color: var(--primary);
+  background-color: #ff5101;
   padding: 10px;
   font-weight: bold;
   font-size: 15px;
-  color: var(--primary-text);
+  color: #fff;
   width: 30px;
   height: 30px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  :active {
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-  }
 `;
 
 export const ResponsiveWrapper = styled.div`
   display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: stretched;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: stretched;
   width: 100%;
-  @media (min-width: 767px) {
-    flex-direction: row;
-  }
-`;
-
-export const StyledLogo = styled.img`
-  width: 200px;
-  @media (min-width: 767px) {
-    width: 200px;
-  }
-  transition: width 0.5s;
-  transition: height 0.5s;
+  padding: 20px;
+  margin-top: 50px;
+  background: rgba(0, 0, 0, 0.4);
 `;
 
 export const SloganImg = styled.img`
-  display: flex;
   width: 500px;
-  transition: width 0.5s;
 `;
 
 export const SlideWrap = styled.div`
   display: flex;
-  width: 500px;
+  width: 36%;
 `;
 
 export const MintingWrap = styled.div`
+  position: relative;
   display: flex;
-  width: calc(100% - 520px);
+  flex-direction: column;
+  width: 60%;
   height: 100%;
-  background-color: rgba(255, 255, 255, .4);
+  padding: 44px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
 `;
 
-export const StyledImg = styled.img`
-  box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px dashed var(--secondary);
-  background-color: var(--accent);
-  border-radius: 100%;
-  width: 200px;
-  @media (min-width: 900px) {
-    width: 250px;
-  }
-  @media (min-width: 1000px) {
-    width: 300px;
-  }
-  transition: width 0.5s;
+export const MintingImg = styled.img`
+  position: absolute;
+  top: -115px;
+  right: 45px;
+  width: 150px;
+`;
+
+export const MintingSubText = styled.div`
+  color: #999;
+  font-size: 16px;
 `;
 
 export const StyledLink = styled.a`
@@ -215,30 +209,27 @@ function App() {
     getData();
   }, [blockchain.account]);
 
-  
+  /* Quantitt & Price 에 들어가는 값. */
+  const quantity = {
+    remain: 2000,
+    total: 3000,
+  };
 
   return (
     <s.Screen>
       <s.Container
-      /* 전체 영역 */
+        /* 전체 영역 */
         flex={1}
         ai={"center"}
         h={100}
-        style={{ padding: 24, backgroundColor: "var(--primary)", height: 200 }}
+        style={{ padding: 24 }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
-        <s.Container
-        /* 🔽 헤더 */
-          h={140}
-          ai={"center"}
-          jc={"space-between"}
-          fd={"row"}
-        >
-          {/* 로고 */}
+        <s.Container h={140} ai={"center"} jc={"space-between"} fd={"row"}>
           <a d={"block"} w={200} href={CONFIG.MARKETPLACE_LINK}>
             <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
           </a>
-          {/* 지갑 버튼 */}
+
           <WalletButton
             onClick={(e) => {
               e.preventDefault();
@@ -248,239 +239,352 @@ function App() {
           >
             WALLET CONNECT
           </WalletButton>
-          {/* 🔼 헤더 */}
         </s.Container>
-        {/* 슬로건 */}
-        <SloganImg alt={"SAVING PLANET, PLOGGING CATS"} src={"/config/images/minting_slogan.png"}/>
 
-        {/* <ResponsiveWrapper flex={1} style={{ padding: 24 }} test> */}
-        <ResponsiveWrapper flex={1} style={{ padding: 24, marginTop: 50 }}>
+        <SloganImg
+          alt={"SAVING PLANET, PLOGGING CATS"}
+          src={"/config/images/minting_slogan.png"}
+        />
 
+        <ResponsiveWrapper flex={1} jc={"space-between"} fd={"row"}>
           <SlideWrap>
             <Slide />
           </SlideWrap>
 
-          {/* 우측 박스 */}
-          <MintingWrap></MintingWrap>
-          {/* <s.Container
-            flex={3}
-            jc={"center"}
-            ai={"center"}
-            style={{
-              backgroundColor: "var(--accent)",
-              padding: 24,
-              borderRadius: 24,
-              border: "4px dashed var(--secondary)",
-              boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
-            }}
-          >
-            <s.TextTitle
+          <MintingWrap>
+            <MintingImg
+              alt={"SAVING PLANET, PLOGGING CATS"}
+              src={"/config/images/minting_cat.png"}
+            />
+            {/* 민팅 헤더 */}
+            <s.Container flex={4} jc={"center"}>
+              <s.TextTitle
+                style={{
+                  height: "43px",
+                  fontSize: 32,
+                  fontWeight: "bold",
+                  color: "#ff5101",
+                  borderBottom: "10px solid #f3ebcb",
+                }}
+              >
+                오늘은 플로깅 캣츠 민팅 DAY!
+              </s.TextTitle>
+              <s.TextTitle
+                style={{
+                  height: "43px",
+                  fontSize: 32,
+                  fontWeight: "bold",
+                  color: "#000",
+                }}
+              >
+                지금 바로, 민팅을 해보세요!
+              </s.TextTitle>
+              <s.TextDescription
+                style={{
+                  marginBottom: "20px",
+                  color: "#666",
+                }}
+              >
+                Today is PLOGGING CATS Minting Day! Right Now! Minting start!
+              </s.TextDescription>
+            </s.Container>
+
+            {/* 민팅 Quantity & Price */}
+            <s.Container
+              flex={3}
+              fd={"column"}
               style={{
-                textAlign: "center",
-                fontSize: 50,
+                marginBottom: "30px",
+              }}
+            >
+              <s.Container
+                fd={"row"}
+                jc={"start"}
+                ai={"space-between"}
+                style={{
+                  fontSize: 24,
+                  fontWeight: "bold",
+                  color: "#000",
+                }}
+              >
+                <s.Container
+                  flex={2}
+                  ai={"center"}
+                  fd={"row"}
+                >
+                  Quantity & Price
+                  <s.TextDescription
+                    style={{
+                      fontSize: "12px",
+                      color: "#666",
+                    }}
+                  >
+                    &nbsp;REMAINING QUANTITY
+                  </s.TextDescription>
+                </s.Container>
+                <s.Container
+                  flex={1}
+                  fd={"row"}
+                  jc={"end"}
+                  ai={"center"}
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    color: "#000",
+                    marginBottom: "30px",
+                  }}
+                >
+                  <s.TextTitle
+                    style={{
+                      fontSize: 22,
+                      fontWeight: "bold",
+                      color: "#ff5101",
+                    }}
+                  >
+                    {quantity.remain}
+                  </s.TextTitle>
+                  &nbsp;/&nbsp;
+                  <s.TextTitle
+                    style={{
+                      fontSize: 22,
+                      fontWeight: "bold",
+                      color: "#666",
+                    }}
+                  >
+                    {quantity.total}
+                  </s.TextTitle>
+                </s.Container>
+              </s.Container>
+              <ProgressBar 
+                completed={quantity.remain}
+                maxCompleted={quantity.total}
+                bgColor="#ff5101"
+                isLabelVisible={false}
+                baseBgColor="#999"
+                height={100}
+                />
+            </s.Container>
+
+            {/* 민팅 구매 수량 및 버튼 */}
+            <s.Container
+              flex={3}
+              fd={"row"}
+              jc={"start"}
+              ai={"end"}
+              style={{
+                height: "43px",
+                fontSize: 24,
                 fontWeight: "bold",
-                color: "var(--accent-text)",
+                color: "#000",
               }}
             >
-              {data.totalSupply} / {CONFIG.MAX_SUPPLY}
-            </s.TextTitle>
-            <s.TextDescription
-              style={{
-                textAlign: "center",
-                color: "var(--primary-text)",
-              }}
-            >
-              <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-              </StyledLink>
-            </s.TextDescription>
-            <span
-              style={{
-                textAlign: "center",
-              }}
-            >
-              <StyledButton
-                onClick={(e) => {
-                  window.open("/config/roadmap.pdf", "_blank");
-                }}
+              민팅 구매 수량
+              <span
                 style={{
-                  margin: "5px",
+                  display: "inline",
+                  fontSize: "16px",
+                  color: "#666",
+                  fontWeight: "thin",
                 }}
               >
-                Roadmap
-              </StyledButton>
-              <StyledButton
+                &nbsp;MINTING AMOUNT
+              </span>
+            </s.Container>
+          </MintingWrap>
+
+          {/* 
+
+            <s.Container
+              flex={3}
+              jc={"center"}
+              ai={"center"}
+              style={{
+                padding: 24,
+                borderRadius: 50,
+                overflow: "hidden",
+              }}
+            >
+              <s.TextTitle
                 style={{
-                  margin: "5px",
-                }}
-                onClick={(e) => {
-                  window.open(CONFIG.MARKETPLACE_LINK, "_blank");
+                  textAlign: "center",
+                  fontSize: 32,
+                  fontWeight: "bold",
+                  color: "#000",
                 }}
               >
-                {CONFIG.MARKETPLACE}
-              </StyledButton>
-            </span>
-            <s.SpacerSmall />
-            {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
-              <>
-                <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  The sale has ended.
-                </s.TextTitle>
-                <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  You can still find {CONFIG.NFT_NAME} on
-                </s.TextDescription>
-                <s.SpacerSmall />
-                <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
-                  {CONFIG.MARKETPLACE}
+                오늘은 플로깅 캣츠 민팅 DAY!<br />
+                지금 바로, 민팅을 해보세요!
+                {data.totalSupply} / {CONFIG.MAX_SUPPLY}
+              </s.TextTitle>
+              <s.TextDescription
+                style={{
+                  textAlign: "center",
+                  color: "#666",
+                }}
+              >
+                Today is PLOGGING CATS Minting Day! Right Now! Minting start!
+                <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
+                  {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
                 </StyledLink>
-              </>
-            ) : (
-              <>
-                <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+              </s.TextDescription>
+              <span
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <StyledButton
+                  onClick={(e) => {
+                    window.open("/config/roadmap.pdf", "_blank");
+                  }}
+                  style={{
+                    margin: "5px",
+                  }}
                 >
-                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
-                  {CONFIG.NETWORK.SYMBOL}.
-                </s.TextTitle>
-                <s.SpacerXSmall />
-                <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  Roadmap
+                </StyledButton>
+                <StyledButton
+                  style={{
+                    margin: "5px",
+                  }}
+                  onClick={(e) => {
+                    window.open(CONFIG.MARKETPLACE_LINK, "_blank");
+                  }}
                 >
-                  Excluding gas fees.
-                </s.TextDescription>
-                <s.SpacerSmall />
-                {blockchain.account === "" ||
-                blockchain.smartContract === null ? (
-                  <s.Container ai={"center"} jc={"center"}>
-                    <s.TextDescription
-                      style={{
-                        textAlign: "center",
-                        color: "var(--accent-text)",
-                      }}
-                    >
-                      Connect to the {CONFIG.NETWORK.NAME} network
-                    </s.TextDescription>
-                    <s.SpacerSmall />
-                    <StyledButton
-                      onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(connect());
-                        getData();
-                      }}
-                    >
-                      CONNECT
-                    </StyledButton>
-                    {blockchain.errorMsg !== "" ? (
-                      <>
-                        <s.SpacerSmall />
-                        <s.TextDescription
-                          style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
-                          }}
-                        >
-                          {blockchain.errorMsg}
-                        </s.TextDescription>
-                      </>
-                    ) : null}
-                  </s.Container>
-                ) : (
-                  <>
-                    <s.TextDescription
-                      style={{
-                        textAlign: "center",
-                        color: "var(--accent-text)",
-                      }}
-                    >
-                      {feedback}
-                    </s.TextDescription>
-                    <s.SpacerMedium />
-                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                      <StyledRoundButton
-                        style={{ lineHeight: 0.4 }}
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          decrementMintAmount();
-                        }}
-                      >
-                        -
-                      </StyledRoundButton>
-                      <s.SpacerMedium />
+                  {CONFIG.MARKETPLACE}
+                </StyledButton>
+              </span>
+              <s.SpacerSmall />
+              {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+                <>
+                  <s.TextTitle
+                    style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  >
+                    The sale has ended.
+                  </s.TextTitle>
+                  <s.TextDescription
+                    style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  >
+                    You can still find {CONFIG.NFT_NAME} on
+                  </s.TextDescription>
+                  <s.SpacerSmall />
+                  <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                    {CONFIG.MARKETPLACE}
+                  </StyledLink>
+                </>
+              ) : (
+                <>
+                  <s.TextTitle
+                    style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  >
+                    1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                    {CONFIG.NETWORK.SYMBOL}.
+                  </s.TextTitle>
+                  <s.SpacerXSmall />
+
+                  <s.TextDescription
+                    style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  >
+                    Excluding gas fees.
+                  </s.TextDescription>
+
+                  <s.SpacerSmall />
+                  {blockchain.account === "" ||
+                  blockchain.smartContract === null ? (
+                    <s.Container ai={"center"} jc={"center"}>
                       <s.TextDescription
                         style={{
                           textAlign: "center",
                           color: "var(--accent-text)",
                         }}
                       >
-                        {mintAmount}
+                        Connect to the {CONFIG.NETWORK.NAME} network
                       </s.TextDescription>
-                      <s.SpacerMedium />
-                      <StyledRoundButton
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          incrementMintAmount();
-                        }}
-                      >
-                        +
-                      </StyledRoundButton>
-                    </s.Container>
-                    <s.SpacerSmall />
-                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                      <s.SpacerSmall />
                       <StyledButton
-                        disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
-                          claimNFTs();
+                          dispatch(connect());
                           getData();
                         }}
                       >
-                        {claimingNft ? "BUSY" : "BUY"}
+                        CONNECT
                       </StyledButton>
+                      {blockchain.errorMsg !== "" ? (
+                        <>
+                          <s.SpacerSmall />
+                          <s.TextDescription
+                            style={{
+                              textAlign: "center",
+                              color: "var(--accent-text)",
+                            }}
+                          >
+                            {blockchain.errorMsg}
+                          </s.TextDescription>
+                        </>
+                      ) : null}
                     </s.Container>
-                  </>
-                )}
-              </>
-            )}
-            <s.SpacerMedium />
-          </s.Container> */}
-          {/* <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg
-              alt={"example"}
-              src={"/config/images/example.gif"}
-              style={{ transform: "scaleX(-1)" }}
-            />
-          </s.Container> */}
+                  ) : (
+                    <>
+                      <s.TextDescription
+                        style={{
+                          textAlign: "center",
+                          color: "var(--accent-text)",
+                        }}
+                      >
+                        {feedback}
+                      </s.TextDescription>
+                      <s.SpacerMedium />
+                      <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        <StyledRoundButton
+                          style={{ lineHeight: 0.4 }}
+                          disabled={claimingNft ? 1 : 0}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            decrementMintAmount();
+                          }}
+                        >
+                          -
+                        </StyledRoundButton>
+                        <s.SpacerMedium />
+                        <s.TextDescription
+                          style={{
+                            textAlign: "center",
+                            color: "var(--accent-text)",
+                          }}
+                        >
+                          {mintAmount}
+                        </s.TextDescription>
+                        <s.SpacerMedium />
+                        <StyledRoundButton
+                          disabled={claimingNft ? 1 : 0}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            incrementMintAmount();
+                          }}
+                        >
+                          +
+                        </StyledRoundButton>
+                      </s.Container>
+                      <s.SpacerSmall />
+                      <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        <StyledButton
+                          disabled={claimingNft ? 1 : 0}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            claimNFTs();
+                            getData();
+                          }}
+                        >
+                          {claimingNft ? "BUSY" : "BUY"}
+                        </StyledButton>
+                      </s.Container>
+                    </>
+                  )}
+                </>
+              )}
+            </s.Container>
+            */}
         </ResponsiveWrapper>
-        {/* <s.SpacerMedium /> */}
-        {/* <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}> */}
-          {/* <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
-            }}
-          >
-            Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
-            Once you make the purchase, you cannot undo this action.
-          </s.TextDescription> */}
-          {/* <s.SpacerSmall /> */}
-          {/* <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
-            }}
-          >
-            We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully mint your NFT. We recommend that you don't lower the
-            gas limit.
-          </s.TextDescription> */}
-        {/* </s.Container> */}
       </s.Container>
     </s.Screen>
   );
