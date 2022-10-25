@@ -52,7 +52,7 @@ export const StyledRoundButton = styled.button`
   background-color: #ff5101;
   padding: 10px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 24px;
   color: #fff;
   width: 30px;
   height: 30px;
@@ -63,14 +63,16 @@ export const StyledRoundButton = styled.button`
 `;
 
 export const ResponsiveWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: stretched;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  max-width: 1920px;
+  height: 60%;
   padding: 20px;
   margin-top: 50px;
-  background: rgba(0, 0, 0, 0.4);
 `;
 
 export const SloganImg = styled.img`
@@ -79,7 +81,11 @@ export const SloganImg = styled.img`
 
 export const SlideWrap = styled.div`
   display: flex;
-  width: 36%;
+  width: 40%;
+  max-width: 500px;
+  height: 100%;
+  align-items: center;
+  box-sizing: border-box;
 `;
 
 export const MintingWrap = styled.div`
@@ -87,10 +93,11 @@ export const MintingWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
-  height: 100%;
+  height: 500px;
   padding: 44px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 50px;
+  margin-left: 20px;
 `;
 
 export const MintingImg = styled.img`
@@ -209,7 +216,7 @@ function App() {
     getData();
   }, [blockchain.account]);
 
-  /* Quantitt & Price 에 들어가는 값. */
+  /* Quantity & Price 에 들어가는 값. */
   const quantity = {
     remain: 2000,
     total: 3000,
@@ -221,8 +228,7 @@ function App() {
         /* 전체 영역 */
         flex={1}
         ai={"center"}
-        h={100}
-        style={{ padding: 24 }}
+        style={{ padding: 24, minWidth: 1000 }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
         <s.Container h={140} ai={"center"} jc={"space-between"} fd={"row"}>
@@ -246,7 +252,7 @@ function App() {
           src={"/config/images/minting_slogan.png"}
         />
 
-        <ResponsiveWrapper flex={1} jc={"space-between"} fd={"row"}>
+        <ResponsiveWrapper>
           <SlideWrap>
             <Slide />
           </SlideWrap>
@@ -293,6 +299,7 @@ function App() {
             <s.Container
               flex={3}
               fd={"column"}
+              jc={"center"}
               style={{
                 marginBottom: "30px",
               }}
@@ -305,21 +312,19 @@ function App() {
                   fontSize: 24,
                   fontWeight: "bold",
                   color: "#000",
+                  marginBottom: "10px",
                 }}
               >
-                <s.Container
-                  flex={2}
-                  ai={"center"}
-                  fd={"row"}
-                >
+                <s.Container flex={2} ai={"center"} fd={"row"}>
                   Quantity & Price
                   <s.TextDescription
                     style={{
                       fontSize: "12px",
                       color: "#666",
+                      marginLeft: "5px",
                     }}
                   >
-                    &nbsp;REMAINING QUANTITY
+                    REMAINING QUANTITY
                   </s.TextDescription>
                 </s.Container>
                 <s.Container
@@ -330,8 +335,6 @@ function App() {
                   style={{
                     fontSize: 14,
                     fontWeight: "bold",
-                    color: "#000",
-                    marginBottom: "30px",
                   }}
                 >
                   <s.TextTitle
@@ -355,22 +358,24 @@ function App() {
                   </s.TextTitle>
                 </s.Container>
               </s.Container>
-              <ProgressBar 
-                completed={quantity.remain}
-                maxCompleted={quantity.total}
-                bgColor="#ff5101"
-                isLabelVisible={false}
-                baseBgColor="#999"
-                height={100}
+              <s.Container>
+                <ProgressBar
+                  completed={quantity.remain}
+                  maxCompleted={quantity.total}
+                  bgColor="#ff5101"
+                  isLabelVisible={false}
+                  baseBgColor="#999"
+                  className="minting_progress"
                 />
+              </s.Container>
             </s.Container>
 
             {/* 민팅 구매 수량 및 버튼 */}
             <s.Container
-              flex={3}
-              fd={"row"}
+              flex={4}
+              fd={"column"}
               jc={"start"}
-              ai={"end"}
+              ai={"start"}
               style={{
                 height: "43px",
                 fontSize: 24,
@@ -378,22 +383,103 @@ function App() {
                 color: "#000",
               }}
             >
-              민팅 구매 수량
-              <span
+              <s.Container
+                ai={"space-between"}
+                fd={"row"}
+                style={{ marginBottom: "20px" }}
+              >
+                <s.Container flex={3} ai={"center"} fd={"row"}>
+                  민팅 구매 수량
+                  <s.TextDescription
+                    style={{
+                      fontSize: "12px",
+                      color: "#666",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    MINTING AMOUNT
+                  </s.TextDescription>
+                </s.Container>
+
+                <s.Container
+                  flex={1}
+                  jc={"space-between"}
+                  ai={"center"}
+                  fd={"row"}
+                >
+                  <StyledRoundButton
+                    disabled={claimingNft ? 1 : 0}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      decrementMintAmount();
+                    }}
+                  >
+                    -
+                  </StyledRoundButton>
+                  {mintAmount}
+                  <StyledRoundButton
+                    disabled={claimingNft ? 1 : 0}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      incrementMintAmount();
+                    }}
+                  >
+                    +
+                  </StyledRoundButton>
+                </s.Container>
+              </s.Container>
+              <s.Container
+                jc={"start"}
+                ai={"center"}
+                fd={"row"}
                 style={{
-                  display: "inline",
-                  fontSize: "16px",
-                  color: "#666",
-                  fontWeight: "thin",
+                  marginBottom: 15,
                 }}
               >
-                &nbsp;MINTING AMOUNT
-              </span>
+                <s.TextDescription
+                  style={{
+                    fontSize: "12px",
+                    color: "#000",
+                  }}
+                >
+                  민팅은 새로고침 없이 진행됩니다.
+                </s.TextDescription>
+                <s.TextDescription
+                  style={{
+                    fontSize: "12px",
+                    color: "#666",
+                    marginLeft: "5px",
+                  }}
+                >
+                  Minting will proceed without refresh (F5)
+                </s.TextDescription>
+              </s.Container>
+              <s.Container
+                flex={1}
+                jc={"center"}
+                ai={"center"}
+                fd={"row"}
+                style={{
+                  height: 30,
+                  fontSize: 12,
+                  color: "#f3ebcb",
+                  backgroundColor: "#ff5101",
+                  fontSize: 28,
+                  fontWeight: "bold",
+                  borderRadius: 15,
+                }}
+                disabled={claimingNft ? 1 : 0}
+                onClick={(e) => {
+                  e.preventDefault();
+                  claimNFTs();
+                  getData();
+                }}
+              >
+                {claimingNft ? "BUSY" : "APPROVE"}
+              </s.Container>
             </s.Container>
           </MintingWrap>
-
           {/* 
-
             <s.Container
               flex={3}
               jc={"center"}
