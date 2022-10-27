@@ -38,23 +38,26 @@ export default class CenterMode extends Component {
       arrows: false,
     };
 
-    const SlideItem = (idx) => {
-      const slideEvent = "slide_item " + baseUrl[idx].event || 'slide_item';
-      return (
-        <div className={slideEvent}>
-          <img className="slide_image" src={baseUrl[idx].image} />
-        </div>
-      );
-    }
-
     return (
-      <Slider {...settings}>
-        {SlideItem(0)}
-        {SlideItem(1)}
-        {SlideItem(2)}
-        {SlideItem(3)}
-        {SlideItem(4)}
-        {SlideItem(5)}
+      <Slider className={"ALBINO"} {...settings}>
+        <div className={"slide_item ALBINO"}>
+          <img className="slide_image" src={baseUrl[0].image} />
+        </div>
+        <div className={"slide_item"}>
+          <img className="slide_image" src={baseUrl[1].image} />
+        </div>
+        <div className={"slide_item"}>
+          <img className="slide_image" src={baseUrl[2].image} />
+        </div>
+        <div className={"slide_item"}>
+          <img className="slide_image" src={baseUrl[3].image} />
+        </div>
+        <div className={"slide_item"}>
+          <img className="slide_image" src={baseUrl[4].image} />
+        </div>
+        <div className={"slide_item"}>
+          <img className="slide_image" src={baseUrl[5].image} />
+        </div>
       </Slider>
     );
   }
