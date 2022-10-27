@@ -344,7 +344,7 @@ function App() {
                       color: "#ff5101",
                     }}
                   >
-                    {quantity.remain}
+                    {data.totalSupply}
                   </s.TextTitle>
                   &nbsp;/&nbsp;
                   <s.TextTitle
@@ -354,14 +354,14 @@ function App() {
                       color: "#666",
                     }}
                   >
-                    {quantity.total}
+                    {CONFIG.MAX_SUPPLY}
                   </s.TextTitle>
                 </s.Container>
               </s.Container>
               <s.Container>
                 <ProgressBar
-                  completed={quantity.remain}
-                  maxCompleted={quantity.total}
+                  completed={data.totalSupply}
+                  maxCompleted={CONFIG.MAX_SUPPLY}
                   bgColor="#ff5101"
                   isLabelVisible={false}
                   baseBgColor="#999"
