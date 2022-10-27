@@ -216,12 +216,6 @@ function App() {
     getData();
   }, [blockchain.account]);
 
-  /* Quantity & Price 에 들어가는 값. */
-  const quantity = {
-    remain: 2000,
-    total: 3000,
-  };
-
   return (
     <s.Screen>
       <s.Container
