@@ -1,18 +1,18 @@
 {
-  "CONTRACT_ADDRESS": "0x0b18b900F7375AABDa00EEaC988116C33fb05BD2",
-  "SCAN_LINK": "https://polygonscan.com/token/0x0b18b900F7375AABDa00EEaC988116C33fb05BD2",
+  "CONTRACT_ADDRESS": "0x072d9CF4DA3919E40514Ff61342a82116947f379",
+  "SCAN_LINK": "https://polygonscan.com/token/0x072d9CF4DA3919E40514Ff61342a82116947f379",
   "NETWORK": {
     "NAME": "Polygon",
     "SYMBOL": "Matic",
-    "ID": 137
+    "ID": 80001
   },
   "NFT_NAME": "PloggingCats NFT",
   "SYMBOL": "PCNFT",
-  "MAX_SUPPLY": 992,
-  "WEI_COST": 5000000000000000000,
-  "DISPLAY_COST": 4,
+  "MAX_SUPPLY": 3000,
+  "WEI_COST": 25000000000000000000,
+  "DISPLAY_COST": 25,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/the-stripes-nft",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/ploggingcats-season-1-haedal-test2",
   "SHOW_BACKGROUND": true
 }
