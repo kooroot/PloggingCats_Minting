@@ -7,6 +7,7 @@
   position: relative;
   border-radius: 50px;
   background-color: #f3ebcb;
+  overflow: hidden;
 }
 
 .slide_item {
@@ -19,6 +20,12 @@
   background-origin: border-box;
   background-clip: content-box, border-box;
 }
+.slide_item.ALBINO{
+  background: rgb(243,235,203);
+  background: linear-gradient(0deg, rgba(243,235,203,1) 0%, rgba(251,215,134,1) 40%, rgba(247,121,125,1) 100%);
+}
+
+
 
 .slide_item.ALBINO::before{
   content: "ALBINO";
