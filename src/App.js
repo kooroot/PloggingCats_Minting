@@ -33,7 +33,6 @@ export const StyledLogo = styled.img`
 `;
 
 export const WalletButton = styled.button`
-  width: 300px;
   height: 50px;
   border-radius: 10px;
   border: 2px solid #fff;
@@ -69,9 +68,20 @@ export const ResponsiveWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 100%;
   max-width: 1920px;
+  margin-top: 50px;
+`;
+export const ResponsiveHeader = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1720px;
   height: 60%;
-  padding: 20px;
+  padding: 0 20px;
   margin-top: 50px;
 `;
 
@@ -216,6 +226,9 @@ function App() {
     getData();
   }, [blockchain.account]);
 
+  /* Custom */
+  let wallet_state = "WALLET CONNECT";
+
   return (
     <s.Screen>
       <s.Container
@@ -225,7 +238,7 @@ function App() {
         style={{ padding: 24, minWidth: 1000 }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
-        <s.Container h={140} ai={"center"} jc={"space-between"} fd={"row"}>
+        <ResponsiveHeader>
           <a d={"block"} w={200} href={CONFIG.MARKETPLACE_LINK}>
             <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
           </a>
@@ -237,9 +250,9 @@ function App() {
               getData();
             }}
           >
-            WALLET CONNECT
+            {wallet_state}
           </WalletButton>
-        </s.Container>
+        </ResponsiveHeader>
 
         <SloganImg
           alt={"SAVING PLANET, PLOGGING CATS"}

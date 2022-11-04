@@ -25,8 +25,6 @@
   background: linear-gradient(0deg, rgba(243,235,203,1) 0%, rgba(251,215,134,1) 40%, rgba(247,121,125,1) 100%);
 }
 
-
-
 .slide_item.ALBINO::before{
   content: "ALBINO";
   display: flex;
