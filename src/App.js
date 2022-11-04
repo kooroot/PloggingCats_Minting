@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { connect } from "./redux/blockchain/blockchainActions";
+import { connect, updateAccount } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import ProgressBar from "@ramonak/react-progress-bar";
 import * as s from "./styles/globalStyles";
@@ -185,8 +185,8 @@ function App() {
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 50) {
-      newMintAmount = 50;
+    if (newMintAmount > 10) {
+      newMintAmount = 10;
     }
     setMintAmount(newMintAmount);
   };
@@ -469,7 +469,7 @@ function App() {
                   getData();
                 }}
               >
-                {claimingNft ? "BUSY" : "APPROVE"}
+                {claimingNft ? "BUYS" : "APPROVE"}
               </s.Container>
             </s.Container>
           </MintingWrap>
