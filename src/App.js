@@ -375,7 +375,7 @@ function App() {
                       color: "#000",
                     }}
                   >
-                    &amp;&nbsp;{CONFIG.DISPLAY_COST}&nbsp;MATIC
+                    &nbsp;{CONFIG.DISPLAY_COST}&nbsp;MATIC
                   </s.Container>
                 </s.Container>
               </s.Container>
