@@ -337,32 +337,46 @@ function App() {
                 <s.Container
                   flex={1}
                   fd={"row"}
-                  jc={"end"}
+                  jc={"center"}
                   ai={"center"}
                   style={{
                     fontSize: 14,
                     fontWeight: "bold",
                   }}
                 >
-                  <s.TextTitle
+                  <s.Container flex={1} fd={"row"} jc={"flex-end"} ai={"center"}>
+                    <s.TextTitle
+                      style={{
+                        fontSize: 22,
+                        fontWeight: "bold",
+                        color: "#ff5101",
+                      }}
+                    >
+                      {data.totalSupply}
+                    </s.TextTitle>
+                    &nbsp;/&nbsp;
+                    <s.TextTitle
+                      style={{
+                        fontSize: 22,
+                        fontWeight: "bold",
+                        color: "#666",
+                      }}
+                    >
+                      {CONFIG.MAX_SUPPLY}
+                    </s.TextTitle>
+                  </s.Container>
+                  <s.Container
+                    flex={1}
+                    jc={"flex-start"}
+                    ai={"center"}
                     style={{
-                      fontSize: 22,
+                      fontSize: 18,
                       fontWeight: "bold",
-                      color: "#ff5101",
+                      color: "#000",
                     }}
                   >
-                    {data.totalSupply}
-                  </s.TextTitle>
-                  &nbsp;/&nbsp;
-                  <s.TextTitle
-                    style={{
-                      fontSize: 22,
-                      fontWeight: "bold",
-                      color: "#666",
-                    }}
-                  >
-                    {CONFIG.MAX_SUPPLY}
-                  </s.TextTitle>
+                    &amp;&nbsp;{CONFIG.DISPLAY_COST}&nbsp;MATIC
+                  </s.Container>
                 </s.Container>
               </s.Container>
               <s.Container>
