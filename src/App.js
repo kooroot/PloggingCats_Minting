@@ -226,10 +226,6 @@ function App() {
     getData();
   }, [blockchain.account]);
 
-  /* Custom */
-  let wallet_state = "WALLET CONNECT";
-  let wallet_connect_sucess = blockchain.account;
-
   return (
     <s.Screen>
       <s.Container
@@ -251,7 +247,7 @@ function App() {
               getData();
             }}
           >
-            {wallet_state}
+            {blockchain.account ? blockchain.account : "WALLET CONNECT"}
           </WalletButton>
         </ResponsiveHeader>
 
