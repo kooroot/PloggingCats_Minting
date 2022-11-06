@@ -1,6 +1,6 @@
 {
-  "CONTRACT_ADDRESS": "0x072d9CF4DA3919E40514Ff61342a82116947f379",
-  "SCAN_LINK": "https://polygonscan.com/token/0x072d9CF4DA3919E40514Ff61342a82116947f379",
+  "CONTRACT_ADDRESS": "0x86b21274Fd503fB38fbb4B5330642cd7669419c7",
+  "SCAN_LINK": "https://polygonscan.com/token/0x86b21274Fd503fB38fbb4B5330642cd7669419c7",
   "NETWORK": {
     "NAME": "Polygon",
     "SYMBOL": "Matic",
@@ -13,6 +13,6 @@
   "DISPLAY_COST": 25,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/ploggingcats-season-1-haedal-test2",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/ploggingcats-season1-haedal-finaltest",
   "SHOW_BACKGROUND": true
 }
