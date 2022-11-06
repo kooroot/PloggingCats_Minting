@@ -228,6 +228,7 @@ function App() {
 
   /* Custom */
   let wallet_state = "WALLET CONNECT";
+  let wallet_connect_sucess = blockchain.account;
 
   return (
     <s.Screen>
