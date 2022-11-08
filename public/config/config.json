@@ -2,7 +2,7 @@
   "CONTRACT_ADDRESS": "0x86b21274Fd503fB38fbb4B5330642cd7669419c7",
   "SCAN_LINK": "https://polygonscan.com/token/0x86b21274Fd503fB38fbb4B5330642cd7669419c7",
   "NETWORK": {
-    "NAME": "Polygon",
+    "NAME": "Polygon Mainnet",
     "SYMBOL": "Matic",
     "ID": 80001
   },

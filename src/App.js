@@ -489,6 +489,7 @@ function App() {
                 disabled={claimingNft ? 1 : 0}
                 onClick={(e) => {
                   e.preventDefault();
+                  if (blockchain.account==null) { alert("Please connect your wallet."); return;}
                   claimNFTs();
                   getData();
                 }}
