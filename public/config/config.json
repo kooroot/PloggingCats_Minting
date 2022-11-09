@@ -1,6 +1,6 @@
 {
-  "CONTRACT_ADDRESS": "0xB15e7bE51C5dc57cf151C6c7a40638935D426476",
-  "SCAN_LINK": "https://polygonscan.com/token/0xB15e7bE51C5dc57cf151C6c7a40638935D426476",
+  "CONTRACT_ADDRESS": "0xa76a78573bA00d6d156CCF796AFcB6428263141a",
+  "SCAN_LINK": "https://polygonscan.com/token/0xa76a78573bA00d6d156CCF796AFcB6428263141a",
   "NETWORK": {
     "NAME": "Polygon Mainnet",
     "SYMBOL": "Matic",
@@ -11,7 +11,7 @@
   "MAX_SUPPLY": 2640,
   "WEI_COST": 25000000000000000000,
   "DISPLAY_COST": 25,
-  "GAS_LIMIT": 30000000,
+  "GAS_LIMIT": 300000,
   "MARKETPLACE": "Opeansea",
   "MARKETPLACE_LINK": "https://opensea.io/collection/ploggingcats-season1-sea-otter-bono",
   "SHOW_BACKGROUND": true
