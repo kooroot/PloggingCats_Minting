@@ -24,6 +24,19 @@ const connectFailed = (payload) => {
   };
 };
 
+const disconnectRequest = () => {
+  return {
+    type : "DISCONNECT_REQUEST",
+  };
+};
+
+const disconnectSuccess = (payload) => {
+  return {
+    type : "DISCONNECT_SUCCESS",
+    payload: payload,
+  };
+};
+
 const updateAccountRequest = (payload) => {
   return {
     type: "UPDATE_ACCOUNT",
@@ -94,6 +107,12 @@ export const connect = () => {
     }
   };
 };
+
+export const disconnect = () => {
+  return async (dispatch) => {
+    dispatch(connectRequest());
+  }
+}
 
 export const updateAccount = (account) => {
   return async (dispatch) => {

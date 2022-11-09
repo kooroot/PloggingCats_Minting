@@ -1,18 +1,18 @@
 {
-  "CONTRACT_ADDRESS": "0x86b21274Fd503fB38fbb4B5330642cd7669419c7",
-  "SCAN_LINK": "https://polygonscan.com/token/0x86b21274Fd503fB38fbb4B5330642cd7669419c7",
+  "CONTRACT_ADDRESS": "0xB15e7bE51C5dc57cf151C6c7a40638935D426476",
+  "SCAN_LINK": "https://polygonscan.com/token/0xB15e7bE51C5dc57cf151C6c7a40638935D426476",
   "NETWORK": {
     "NAME": "Polygon Mainnet",
     "SYMBOL": "Matic",
-    "ID": 80001
+    "ID": 137
   },
-  "NFT_NAME": "PloggingCats NFT",
-  "SYMBOL": "PCNFT",
+  "NFT_NAME": "PloggingCats Season1 Sea otter-BONO",
+  "SYMBOL": "PCSSONFT",
   "MAX_SUPPLY": 2640,
   "WEI_COST": 25000000000000000000,
   "DISPLAY_COST": 25,
-  "GAS_LIMIT": 285000,
+  "GAS_LIMIT": 30000000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/ploggingcats-season1-haedal-finaltest",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/ploggingcats-season1-sea-otter-bono",
   "SHOW_BACKGROUND": true
 }
